@@ -8,10 +8,8 @@ import { Link } from 'expo-router';
 export default function IndexScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Game</Text>
-      {/* <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/modal.tsx" /> */}
-      <Link href="/">Index</Link>
+      <Text style={styles.title}>Index</Text>
+      <Link href="/game">Game</Link>
       <Link href="/tutorial">Tutorial</Link>
     </View>
   );
