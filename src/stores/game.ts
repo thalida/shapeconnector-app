@@ -11,24 +11,38 @@ import {
   IGame,
   INode,
   TDifficultyValues,
+  DEFAULT_DIFFICULTY,
+  DIFFICULTY,
 } from "@/types/game";
 
 export class GameStore {
   game: IGame | null = null;
+  encodedGame: string | null = null;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  get encodedGame() {
-    if (this.game === null) {
-      return null;
+  setupGame(
+    encodedGame: string | null | undefined,
+    difficulty_str: string | null | undefined,
+  ) {
+    const difficulty = this._parseDifficulty(difficulty_str);
+    if (typeof encodedGame === "string" && encodedGame.length > 0) {
+      try {
+        this.game = gameStore._decodeGame(encodedGame);
+        this.encodedGame = encodedGame;
+        return;
+      } catch (error) {
+        throw error;
+      }
     }
 
-    return this.encodeGame(this.game);
+    this.game = gameStore._createGame(difficulty);
+    this.encodedGame = gameStore._encodeGame(this.game);
   }
 
-  createGame(difficulty: TDifficultyValues) {
+  private _createGame(difficulty: TDifficultyValues): IGame {
     const { gridSize, numColors, numShapes, pathSizeMin, pathSizeMax } =
       DIFFICULTY_MAP[difficulty];
 
@@ -73,9 +87,7 @@ export class GameStore {
       });
     });
 
-    console.log("path", path);
-
-    this.game = {
+    return {
       settings: gameSettings,
       grid,
       goal: {
@@ -86,16 +98,20 @@ export class GameStore {
     };
   }
 
-  decodeGame(encodedGame: string) {
-    const stringifiedGame = atob(encodedGame);
-    const game = JSON.parse(stringifiedGame);
-    this.game = game;
-  }
-
-  encodeGame(game: IGame): string {
+  private _encodeGame(game: IGame): string {
     const stringifiedGame = JSON.stringify(game);
     const encodedGame = btoa(stringifiedGame);
     return encodedGame;
+  }
+
+  private _decodeGame(encodedGame: string): IGame {
+    try {
+      const stringifiedGame = atob(encodedGame);
+      const game = JSON.parse(stringifiedGame);
+      return game;
+    } catch (error) {
+      throw error;
+    }
   }
 
   private _generatePath(
@@ -205,6 +221,26 @@ export class GameStore {
     visitedNodes.push(newNode);
 
     return this._generatePath(gameSettings, newNode, path, visitedNodes);
+  }
+
+  private _parseDifficulty(
+    difficulty_str: string | null | undefined,
+  ): TDifficultyValues {
+    if (
+      typeof difficulty_str === "undefined" ||
+      difficulty_str === null ||
+      typeof difficulty_str !== "string"
+    ) {
+      return DEFAULT_DIFFICULTY;
+    }
+
+    const difficulty = parseInt(difficulty_str, 10) as TDifficultyValues;
+    const isValidDifficulty = Object.values(DIFFICULTY).includes(difficulty);
+    if (!isValidDifficulty) {
+      return DEFAULT_DIFFICULTY;
+    }
+
+    return difficulty;
   }
 }
 
