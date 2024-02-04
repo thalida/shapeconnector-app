@@ -1,15 +1,14 @@
 import { Link } from "expo-router";
+import { StyleSheet } from "react-native";
 
-import { Box, Text } from "@/components";
+import { Box, Text } from "@/components/ui";
 
 export default function IndexScreen() {
   return (
     <Box style={styles.container}>
       <Text style={styles.title}>Tutorial</Text>
-      {/* <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/modal.tsx" /> */}
       <Link href="/">Index</Link>
-      <Link href="/game">Game</Link>
+      <Link href="/play">Start Game</Link>
     </Box>
   );
 }
