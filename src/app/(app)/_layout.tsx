@@ -1,6 +1,6 @@
 import { Slot } from "expo-router";
 
-function Layout() {
+export function AppLayout() {
   return (
     <>
       <Slot />
