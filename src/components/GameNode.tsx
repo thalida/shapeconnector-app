@@ -1,14 +1,10 @@
-import { useMemo } from "react";
-import { StyleSheet } from "react-native";
-
-// import CircleNode from "./nodes/SquareNode";
 import CircleNode from "./nodes/CircleNode";
+import DiamondNode from "./nodes/Diamond";
 import SquareNode from "./nodes/SquareNode";
-// import DiamondNode from "./nodes/v1/DiamondNode";
-// import TriangleNode from "./nodes/v1/TriangleNode";
+import TriangleNode from "./nodes/TriangleNode";
 import { Box } from "./ui";
 
-import { IGame, IRenderedNode, NODE_COLORS, NODE_SHAPES } from "@/types/game";
+import { IRenderedNode, NODE_COLORS, NODE_SHAPES } from "@/types/game";
 
 export function GameNode({
   node,
@@ -24,7 +20,8 @@ export function GameNode({
     [NODE_COLORS.YELLOW]: "#D49211",
   };
 
-  console.log("node", node);
+  const isPossibleMove = false;
+  const isSelected = false;
 
   return (
     <Box
@@ -40,24 +37,34 @@ export function GameNode({
         <CircleNode
           fillColor={nodeColorMap[node.color]}
           size={size}
-          isPossibleMove
-          isSelected={false}
+          isPossibleMove={isPossibleMove}
+          isSelected={isSelected}
         />
       )}
       {node.shape === NODE_SHAPES.SQUARE && (
         <SquareNode
           fillColor={nodeColorMap[node.color]}
           size={size}
-          isPossibleMove
-          isSelected={false}
+          isPossibleMove={isPossibleMove}
+          isSelected={isSelected}
         />
       )}
-      {/* {node.shape === NODE_SHAPES.TRIANGLE && (
-        <TriangleNode fillColor={fillColor} size={size} />
-      )} */}
-      {/* {node.shape === NODE_SHAPES.DIAMOND && (
-        <DiamondNode fillColor={fillColor} size={size} />
-      )} */}
+      {node.shape === NODE_SHAPES.TRIANGLE && (
+        <TriangleNode
+          fillColor={nodeColorMap[node.color]}
+          size={size}
+          isPossibleMove={isPossibleMove}
+          isSelected={isSelected}
+        />
+      )}
+      {node.shape === NODE_SHAPES.DIAMOND && (
+        <DiamondNode
+          fillColor={nodeColorMap[node.color]}
+          size={size}
+          isPossibleMove={isPossibleMove}
+          isSelected={isSelected}
+        />
+      )}
     </Box>
   );
 }

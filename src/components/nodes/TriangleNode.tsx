@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Svg, { SvgProps, Rect } from "react-native-svg";
+import Svg, { SvgProps, Path } from "react-native-svg";
 
 interface IProps extends SvgProps {
   size: number;
@@ -8,7 +8,7 @@ interface IProps extends SvgProps {
   isPossibleMove?: boolean;
 }
 
-export default function SquareNode({
+export default function TriangleNode({
   size,
   fillColor,
   isSelected,
@@ -22,7 +22,8 @@ export default function SquareNode({
     x: 0,
     y: 0,
     fillOpacity: 1,
-    strokeSize: 0,
+    strokeColor: "#D41167",
+    strokeSize: 8,
     strokeDash: "",
     strokeDashoffset: 0,
     radius: 12,
@@ -30,19 +31,21 @@ export default function SquareNode({
 
   useEffect(() => {
     const fillOpacity = isSelected ? 0.9 : isPossibleMove ? 0.6 : 1;
-    const strokeSize = isSelected ? 8 : isPossibleMove ? 4 : 0;
+    const strokeSize = isPossibleMove ? 4 : 8;
+    const strokeColor = isSelected || isPossibleMove ? "#fff" : fillColor;
     const strokeDash = isPossibleMove ? "32 24" : "";
-    const strokeDashoffset = isPossibleMove ? -32 : 0;
-    const radius = 12 - strokeSize / 2;
+    const strokeDashoffset = 0;
+    const radius = size / 2 - strokeSize / 2;
     const innerSize = size - strokeSize;
-
+    const offset = strokeSize / 2;
     const newStyles = {
       size,
-      x: strokeSize / 2,
-      y: strokeSize / 2,
+      x: offset,
+      y: offset,
       innerSize,
       fillColor,
       fillOpacity,
+      strokeColor,
       strokeSize,
       strokeDash,
       strokeDashoffset,
@@ -62,20 +65,16 @@ export default function SquareNode({
       fill="none"
       {...svgProps}
     >
-      <Rect
-        width={styles.innerSize}
-        height={styles.innerSize}
-        x={styles.x}
-        y={styles.y}
+      <Path
         fill={styles.fillColor}
         fillOpacity={styles.fillOpacity}
-        stroke="#fff"
-        strokeWidth={styles.strokeSize}
+        stroke={styles.strokeColor}
         strokeDasharray={styles.strokeDash}
+        strokeDashoffset={styles.strokeDashoffset}
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeDashoffset={styles.strokeDashoffset}
-        rx={styles.radius}
+        strokeWidth={styles.strokeSize}
+        d="M20.8871 10.9414C25.1293 1.95571 37.8299 1.72448 42.3964 10.5498L58.6207 41.9054C62.7536 49.8928 56.9562 59.42 47.9629 59.42H16.9354C8.13274 59.42 2.32589 50.2571 6.08393 42.2969L20.8871 10.9414Z"
       />
     </Svg>
   );

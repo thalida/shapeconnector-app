@@ -31,8 +31,8 @@ export default function CircleNode({
   useEffect(() => {
     const fillOpacity = isSelected ? 0.9 : isPossibleMove ? 0.6 : 1;
     const strokeSize = isSelected ? 8 : isPossibleMove ? 4 : 0;
-    const strokeDash = isPossibleMove ? "32 32" : "";
-    const strokeDashoffset = isPossibleMove ? 32 : 0;
+    const strokeDash = isPossibleMove ? "24 24" : "";
+    const strokeDashoffset = isPossibleMove ? -10 : 0;
     const radius = size / 2 - strokeSize / 2;
     const innerSize = size - strokeSize;
     const offset = strokeSize / 2;
@@ -68,7 +68,7 @@ export default function CircleNode({
         height={styles.innerSize}
         x={styles.x}
         y={styles.y}
-        fill={fillColor}
+        fill={styles.fillColor}
         fillOpacity={styles.fillOpacity}
         stroke="#fff"
         strokeWidth={styles.strokeSize}
