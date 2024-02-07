@@ -1,10 +1,7 @@
-import CircleNode from "./nodes/CircleNode";
-import DiamondNode from "./nodes/Diamond";
-import SquareNode from "./nodes/SquareNode";
-import TriangleNode from "./nodes/TriangleNode";
+import Node from "./nodes/Node";
 import { Box } from "./ui";
 
-import { IRenderedNode, NODE_COLORS, NODE_SHAPES } from "@/types/game";
+import { IRenderedNode } from "@/types/game";
 
 export function GameNode({
   node,
@@ -13,13 +10,6 @@ export function GameNode({
   node: IRenderedNode;
   size: number;
 }) {
-  const nodeColorMap = {
-    [NODE_COLORS.RED]: "#D41167",
-    [NODE_COLORS.GREEN]: "#11D448",
-    [NODE_COLORS.BLUE]: "#1148D4",
-    [NODE_COLORS.YELLOW]: "#D49211",
-  };
-
   const isPossibleMove = false;
   const isSelected = false;
 
@@ -33,38 +23,13 @@ export function GameNode({
         // height: 64,
       }}
     >
-      {node.shape === NODE_SHAPES.CIRCLE && (
-        <CircleNode
-          fillColor={nodeColorMap[node.color]}
-          size={size}
-          isPossibleMove={isPossibleMove}
-          isSelected={isSelected}
-        />
-      )}
-      {node.shape === NODE_SHAPES.SQUARE && (
-        <SquareNode
-          fillColor={nodeColorMap[node.color]}
-          size={size}
-          isPossibleMove={isPossibleMove}
-          isSelected={isSelected}
-        />
-      )}
-      {node.shape === NODE_SHAPES.TRIANGLE && (
-        <TriangleNode
-          fillColor={nodeColorMap[node.color]}
-          size={size}
-          isPossibleMove={isPossibleMove}
-          isSelected={isSelected}
-        />
-      )}
-      {node.shape === NODE_SHAPES.DIAMOND && (
-        <DiamondNode
-          fillColor={nodeColorMap[node.color]}
-          size={size}
-          isPossibleMove={isPossibleMove}
-          isSelected={isSelected}
-        />
-      )}
+      <Node
+        shape={node.shape}
+        color={node.color}
+        size={size}
+        isSelected={isSelected}
+        isPossibleMove={isPossibleMove}
+      />
     </Box>
   );
 }

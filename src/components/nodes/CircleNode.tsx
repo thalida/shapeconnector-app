@@ -3,14 +3,14 @@ import Svg, { SvgProps, Rect } from "react-native-svg";
 
 interface IProps extends SvgProps {
   size: number;
-  fillColor: string;
+  color: string;
   isSelected?: boolean;
   isPossibleMove?: boolean;
 }
 
 export default function CircleNode({
   size,
-  fillColor,
+  color,
   isSelected,
   isPossibleMove,
   ...svgProps
@@ -29,6 +29,7 @@ export default function CircleNode({
   });
 
   useEffect(() => {
+    const fillColor = color;
     const fillOpacity = isSelected ? 0.9 : isPossibleMove ? 0.6 : 1;
     const strokeSize = isSelected ? 8 : isPossibleMove ? 4 : 0;
     const strokeDash = isPossibleMove ? "24 24" : "";
@@ -50,10 +51,8 @@ export default function CircleNode({
       radius,
     };
 
-    console.log("newStyles", newStyles);
-
     setStyles(newStyles);
-  }, [size, fillColor, isSelected, isPossibleMove]);
+  }, [size, color, isSelected, isPossibleMove]);
 
   return (
     <Svg
