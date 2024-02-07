@@ -1,6 +1,8 @@
 import { Box } from "./ui";
 
-export function GameScore() {
+import { IGame } from "@/types/game";
+
+export function GameScore({ gameBoard }: { gameBoard: IGame }) {
   return (
     <Box>
       <></>

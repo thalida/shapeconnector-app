@@ -1,21 +1,18 @@
-import { parse } from "@babel/core";
 import {
   useLocalSearchParams,
   router,
   useRootNavigationState,
+  Link,
 } from "expo-router";
 import { observer } from "mobx-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Game } from "@/components/Game";
-import { Box } from "@/components/ui";
+import { GameBoard } from "@/components/GameBoard";
+import { GameScore } from "@/components/GameScore";
+import { Box, Text } from "@/components/ui";
 import { useGameStore } from "@/stores/game";
-import {
-  DEFAULT_DIFFICULTY,
-  DIFFICULTY,
-  TDifficultyKeys,
-  TDifficultyValues,
-} from "@/types/game";
 
 const PlayScreen = observer(() => {
   const rootNavigationState = useRootNavigationState();
@@ -72,9 +69,21 @@ const PlayScreen = observer(() => {
   }, [isNavigationReady, gameStore.game, gameStore.encodedGame]);
 
   return (
-    <Box>
-      <Game />
-    </Box>
+    <SafeAreaView
+      style={{
+        backgroundColor: "#111",
+        height: "100%",
+      }}
+    >
+      {isReady ? null : <Text>Loading...</Text>}
+      {isReady && gameStore.game !== null && (
+        <Box>
+          <Link href="/">Back</Link>
+          <GameScore gameBoard={gameStore.game} />
+          <GameBoard gameBoard={gameStore.game} />
+        </Box>
+      )}
+    </SafeAreaView>
   );
 });
 

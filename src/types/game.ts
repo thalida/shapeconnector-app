@@ -9,8 +9,8 @@ export type TDifficultyValues = (typeof DIFFICULTY)[TDifficultyKeys];
 export const DEFAULT_DIFFICULTY = DIFFICULTY.EASY;
 
 export const NODE_SHAPES = {
-  SQUARE: 1,
-  CIRCLE: 2,
+  CIRCLE: 1,
+  SQUARE: 2,
   TRIANGLE: 3,
   DIAMOND: 4,
 } as const;
@@ -80,4 +80,8 @@ export interface INode {
   shape: TNodeShapeValues;
   x: number;
   y: number;
+}
+
+export interface IRenderedNode extends INode {
+  isSelected: boolean;
 }
