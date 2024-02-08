@@ -3,14 +3,14 @@ import Svg, { SvgProps, Path } from "react-native-svg";
 
 interface IProps extends SvgProps {
   size: number;
-  color: string;
+  nodeColor: string;
   isSelected?: boolean;
   isPossibleMove?: boolean;
 }
 
 export default function DiamondNode({
   size,
-  color,
+  nodeColor,
   isSelected,
   isPossibleMove,
   ...svgProps
@@ -30,7 +30,7 @@ export default function DiamondNode({
   });
 
   useEffect(() => {
-    const fillColor = color;
+    const fillColor = nodeColor;
     const fillOpacity = isSelected ? 0.9 : isPossibleMove ? 0.6 : 1;
     const strokeSize = isPossibleMove ? 4 : 8;
     const strokeColor = isSelected || isPossibleMove ? "#fff" : fillColor;
@@ -54,7 +54,7 @@ export default function DiamondNode({
     };
 
     setStyles(newStyles);
-  }, [size, color, isSelected, isPossibleMove]);
+  }, [size, nodeColor, isSelected, isPossibleMove]);
 
   return (
     <Svg

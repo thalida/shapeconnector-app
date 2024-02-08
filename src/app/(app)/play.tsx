@@ -8,7 +8,6 @@ import { observer } from "mobx-react";
 import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Game } from "@/components/Game";
 import { GameBoard } from "@/components/GameBoard";
 import { GameScore } from "@/components/GameScore";
 import { Box, Text } from "@/components/ui";

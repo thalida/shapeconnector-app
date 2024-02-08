@@ -13,14 +13,14 @@ import {
 } from "@/types/game";
 
 interface IProps extends SvgProps {
-  shape: TNodeShapeValues;
-  color: TNodeColorValues;
+  nodeShape: TNodeShapeValues;
+  nodeColor: TNodeColorValues;
   size: number;
   isSelected?: boolean;
   isPossibleMove?: boolean;
 }
 
-export default function Node({ shape, color, ...props }: IProps) {
+export default function Node({ nodeShape, nodeColor, ...props }: IProps) {
   const nodeColorMap = {
     [NODE_COLORS.RED]: "#D41167",
     [NODE_COLORS.GREEN]: "#11D448",
@@ -28,15 +28,15 @@ export default function Node({ shape, color, ...props }: IProps) {
     [NODE_COLORS.YELLOW]: "#D49211",
   };
 
-  switch (shape) {
+  switch (nodeShape) {
     case NODE_SHAPES.CIRCLE:
-      return <CircleNode color={nodeColorMap[color]} {...props} />;
+      return <CircleNode nodeColor={nodeColorMap[nodeColor]} {...props} />;
     case NODE_SHAPES.DIAMOND:
-      return <DiamondNode color={nodeColorMap[color]} {...props} />;
+      return <DiamondNode nodeColor={nodeColorMap[nodeColor]} {...props} />;
     case NODE_SHAPES.SQUARE:
-      return <SquareNode color={nodeColorMap[color]} {...props} />;
+      return <SquareNode nodeColor={nodeColorMap[nodeColor]} {...props} />;
     case NODE_SHAPES.TRIANGLE:
-      return <TriangleNode color={nodeColorMap[color]} {...props} />;
+      return <TriangleNode nodeColor={nodeColorMap[nodeColor]} {...props} />;
     default:
       return null;
   }

@@ -3,14 +3,14 @@ import Svg, { SvgProps, Rect } from "react-native-svg";
 
 interface IProps extends SvgProps {
   size: number;
-  color: string;
+  nodeColor: string;
   isSelected?: boolean;
   isPossibleMove?: boolean;
 }
 
 export default function SquareNode({
   size,
-  color,
+  nodeColor,
   isSelected,
   isPossibleMove,
   ...svgProps
@@ -29,7 +29,7 @@ export default function SquareNode({
   });
 
   useEffect(() => {
-    const fillColor = color;
+    const fillColor = nodeColor;
     const fillOpacity = isSelected ? 0.9 : isPossibleMove ? 0.6 : 1;
     const strokeSize = isSelected ? 8 : isPossibleMove ? 4 : 0;
     const strokeDash = isPossibleMove ? "32 24" : "";
@@ -51,7 +51,7 @@ export default function SquareNode({
     };
 
     setStyles(newStyles);
-  }, [size, color, isSelected, isPossibleMove]);
+  }, [size, nodeColor, isSelected, isPossibleMove]);
 
   return (
     <Svg
