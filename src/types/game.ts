@@ -81,14 +81,3 @@ export interface INode {
   x: number;
   y: number;
 }
-
-export interface IRenderedNode extends INode {
-  layout: {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-  } | null;
-  isSelected: boolean;
-  isPossibleMove: boolean;
-}

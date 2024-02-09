@@ -1,41 +1,25 @@
 import Node from "./nodes/Node";
-import { Box } from "./ui/Box";
 
-import { IRenderedNode } from "@/types/game";
+import { INode } from "@/types/game";
 
 export function GameNode({
   node,
-  nodeCoords,
   size,
-  onLayout,
+  isSelected,
+  isPossibleMove,
 }: {
-  node: IRenderedNode;
-  nodeCoords: [number, number];
+  node: INode;
   size: number;
-  onLayout: (
-    nodeCoords: [number, number],
-    layout: { x: number; y: number; width: number; height: number },
-  ) => void;
+  isSelected?: boolean;
+  isPossibleMove?: boolean;
 }) {
-  function handleOnLayout(event) {
-    const { left: x, top: y, width, height } = event.nativeEvent.layout;
-    onLayout(nodeCoords, { x, y, width, height });
-  }
-
   return (
-    <Box
-      onLayout={handleOnLayout}
-      style={{
-        padding: 16,
-      }}
-    >
-      <Node
-        nodeShape={node.shape}
-        nodeColor={node.color}
-        size={size}
-        isSelected={node.isSelected}
-        isPossibleMove={node.isPossibleMove}
-      />
-    </Box>
+    <Node
+      nodeShape={node.shape}
+      nodeColor={node.color}
+      size={size}
+      isSelected={isSelected}
+      isPossibleMove={isPossibleMove}
+    />
   );
 }
